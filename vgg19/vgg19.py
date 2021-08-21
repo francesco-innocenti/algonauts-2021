@@ -1,7 +1,6 @@
 """
-Model adapted to extract feature activations from the PyTorch source code
-for VGG models (https://pytorch.org/vision/stable/_modules/torchvision
-/models/vgg.html)
+Model adapted to extract activations from the PyTorch source code for VGG
+models (https://pytorch.org/vision/stable/_modules/torchvision/models/vgg.html)
 """
 
 import torch.nn as nn
