@@ -1,7 +1,7 @@
 import glob
 import numpy as np
 from utils import load_weights
-from extract_features import extract_activations, apply_PCA
+from extract_features import extract_activations, apply_pca
 from perform_encoding import perform_encoding
 
 
@@ -26,7 +26,7 @@ vgg19 = load_weights(model_url)
 
 # extract features and apply pca
 extract_activations(vgg19, video_list, activations_dir, layer=19)  # specify layer
-apply_PCA(activations_dir, pca_dir)
+apply_pca(activations_dir, pca_dir)
 
 # compute voxelwise correlations for all subjects and ROIs
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
