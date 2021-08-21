@@ -1,8 +1,11 @@
 import glob
 import numpy as np
-from utils import load_weights, extract_activations, apply_PCA, perform_encoding
+from utils import load_weights
+from extract_features import extract_activations, apply_PCA
+from perform_encoding import perform_encoding
 
-# subjects, regions of interest, model weights and layer
+
+# subjects, regions of interest, model and layer
 subs = ["sub01", "sub02", "sub03", "sub04", "sub05", "sub06", "sub07", "sub08", "sub09", "sub10"]
 ROIs = ["V1", "V2", "V3", "V4", "LOC", "EBA", "FFA", "STS", "PPA"]
 model_url = 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
