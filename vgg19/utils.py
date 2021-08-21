@@ -77,13 +77,9 @@ def sample_video_frames(file, n_frames=16):
 
 
 def load_dict(filename_):
-    # read file in bytes
     with open(filename_, 'rb') as f:
-        # create pickle object
-        u = pickle._Unpickler(f)
-        # # change encoding appropriate for numpy array
+        u = pickle.Unpickler(f)
         u.encoding = 'latin1'
-        # load it
         ret_di = u.load()
 
     return ret_di
@@ -113,7 +109,7 @@ def load_fmri(fmri_dir, sub, ROI):
     ROI_file = os.path.join(fmri_dir, sub, ROI + ".pkl")
     ROI_data = load_dict(ROI_file)
 
-    # averaging ROI data across repetitions
+    # average ROI data across repetitions
     ROI_data_train = np.mean(ROI_data["train"], axis=1)
 
     return ROI_data_train
@@ -137,21 +133,18 @@ def load_activations(activations_dir, layer_name):
         containing activations of train videos
     """
 
-    # load training and test file of a given layer
+    # load activation file of a given layer
     train_file = os.path.join(activations_dir, "train_" + layer_name + ".npy")
-    # test_file = os.path.join(activations_dir,"test_" + layer_name + ".npy")
-    train_activations = np.load(train_file)
-    # test_activations = np.load(test_file)
+    activations = np.load(train_file)
 
-    # scale training and test activations
+    # scale activations
     scaler = StandardScaler()
-    train_activations = scaler.fit_transform(train_activations)
-    # test_activations = scaler.fit_transform(test_activations)
+    activations = StandardScaler().fit_transform(activations)
 
-    return train_activations
+    return activations
 
 
-def vectorized_correlation(x,y):
+def vectorized_correlation(x, y):
     dim = 0
 
     centered_x = x - x.mean(axis=dim, keepdims=True)
