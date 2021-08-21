@@ -1,12 +1,10 @@
-import os
 import numpy as np
 from utils import load_fmri, load_activations, vectorized_correlation
 from sklearn.linear_model import LinearRegression
 from sklearn.multioutput import MultiOutputRegressor
 
 
-def perform_encoding(pca_dir, fmri_dir, results_dir, layer, sub, ROI,
-                     batch_size=1000):
+def perform_encoding(pca_dir, fmri_dir, layer, sub, ROI):
     """This function linearly regresses pca-reduced features/activations of a
     given layer of a neural network to the fMRI activity of a given brain region
     (ROI) in a given subject. The fitted model is used to predict part of the
@@ -57,8 +55,7 @@ def perform_encoding(pca_dir, fmri_dir, results_dir, layer, sub, ROI,
 
     # correlation between validation predictions and ground truth
     corr = vectorized_correlation(fmri_val, pred_fmri)
-    print \
-        ("----------------------------------------------------------------------------")
+    print("----------------------------------------------------------------------------")
     # get mean correlation
     voxelwise_corr = round(corr.mean(), 6)
     print("Mean correlation for ROI : " ,ROI ," in " ,sub ," using " ,layer
