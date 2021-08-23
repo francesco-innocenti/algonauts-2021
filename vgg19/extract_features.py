@@ -1,12 +1,14 @@
 import os
 import glob
 import numpy as np
-import torch
 from utils import sample_video_frames
+
+import torch
 from torchvision import transforms as trn
 from torch.autograd import Variable as V
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+
 
 # seed for reproducibility
 seed = 24
@@ -31,9 +33,11 @@ def extract_activations(model, video_list, save_dir, layer):
         list containing path to all videos.
     save_dir : str
         save path for extracted activations.
-    layer : int
+    layer : str
         integer specifying layer number.
     """
+
+    layer_index = [int(n) for n in layer.split('_') if n.isdigit()][0]-1
 
     # preprocessing function
     preprocess = trn.Compose([
@@ -47,36 +51,24 @@ def extract_activations(model, video_list, save_dir, layer):
 
         activations = []
         for frame, image in enumerate(video_frames):
-
-            # preprocess video frame
             input_image = V(preprocess(image).unsqueeze(0))
-
-            # put image onto gpu if available
             if torch.cuda.is_available():
                 input_image = input_image.cuda()
-
-            # feed image through the model
             layer_outputs = model.forward(input_image)
-
             if frame == 0:
-                # append and flatten layer activations
-                activations.append(layer_outputs[layer].ravel())
+                activations.append(layer_outputs[layer_index].ravel())
             else:
-                # add activations over frames
-                activations[0] = activations[0] + layer_outputs[layer].ravel()
+                activations[0] = activations[0] + layer_outputs[layer_index].ravel()
 
-            # average layer activations across frames
-            avg_layer_activations = np.array([activations]) / float(num_frames)
+        # average layer activations across frames
+        avg_layer_activations = np.array([activations]) / float(num_frames)
 
-            # define saving directory
-            save_path = os.path.join(save_dir, video_file_name + "_" +
-                                     "layer" + "_" + str(layer) + ".npy")
-
-            # save activations for a particular video
-            np.save(save_path, avg_layer_activations)
+        # save activations for a particular video
+        save_path = os.path.join(save_dir, video_file_name + "_" + layer + ".npy")
+        np.save(save_path, avg_layer_activations)
 
 
-def apply_pca(activations_dir, save_dir):
+def apply_pca(activations_dir, save_dir, layer):
     """This function preprocesses a neural network's features using PCA and
     save the results in a specified directory.
 
@@ -120,6 +112,6 @@ def apply_pca(activations_dir, save_dir):
     x_train = pca.transform(x_train)
 
     # save results
-    train_save_path = os.path.join(save_dir, "train_layer_19")  # specify layer
+    train_save_path = os.path.join(save_dir, "pca_activations_" + layer)
     np.save(train_save_path, x_train)
 
