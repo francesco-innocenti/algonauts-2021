@@ -1,5 +1,6 @@
 import glob
 import numpy as np
+import matplotlib.pyplot as plt
 from utils import load_weights
 from extract_features import extract_activations, apply_pca
 from perform_encoding import perform_encoding
@@ -28,10 +29,9 @@ extract_activations(vgg19, video_list[:train_videos], activations_dir, layer)
 pca_dir = '/pca_activations'
 apply_pca(activations_dir, pca_dir, layer)
 
+# compute voxelwise correlations for all subjects and ROIs
 fmri_dir = '/participants_data_v2021/mini_track'
 results_dir = '/predictions_vgg19'
-
-# compute voxelwise correlations for all subjects and ROIs
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
 for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
@@ -42,4 +42,21 @@ for i, sub in enumerate(subs):
                                                  ROI=ROI)
 
 np.save(results_dir, voxelwise_corrs)
+
+# mean and std correlation across subjects
+subjs_mean = np.mean(voxelwise_corrs, axis=0)
+subjs_std = np.std(voxelwise_corrs, axis=0)
+
+# plot results
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.bar(ROIs, subjs_mean, color='red', alpha=0.5)
+ax.errorbar(x=ROIs, y=subjs_mean, yerr=subjs_std, linestyle='', elinewidth=1,
+            capsize=6, color='k')
+ax.set_title('Conv layer #16', fontsize=30, fontweight='bold', pad=35)
+ax.set_xlabel("Region of interest", fontsize=25, labelpad=30)
+ax.set_ylabel("Correlation", fontsize=25, labelpad=30)
+ax.tick_params(axis='x', labelsize=20)
+ax.tick_params(axis='y', labelsize=20)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
 
