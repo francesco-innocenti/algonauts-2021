@@ -50,8 +50,7 @@ subjs_std = np.std(voxelwise_corrs, axis=0)
 # plot results
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.bar(ROIs, subjs_mean, color='red', alpha=0.5)
-ax.errorbar(x=ROIs, y=subjs_mean, yerr=subjs_std, linestyle='', elinewidth=1,
-            capsize=6, color='k')
+ax.errorbar(x=ROIs, y=subjs_mean, yerr=subjs_std, linestyle='', elinewidth=1, capsize=6, color='k')
 ax.set_title('Conv layer #16', fontsize=30, fontweight='bold', pad=35)
 ax.set_xlabel("Region of interest", fontsize=25, labelpad=30)
 ax.set_ylabel("Correlation", fontsize=25, labelpad=30)
@@ -59,4 +58,3 @@ ax.tick_params(axis='x', labelsize=20)
 ax.tick_params(axis='y', labelsize=20)
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
-
