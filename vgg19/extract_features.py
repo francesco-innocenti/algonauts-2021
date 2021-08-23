@@ -85,32 +85,23 @@ def apply_pca(activations_dir, save_dir, layer):
     # number of PCA components
     n_components = 100
 
-    # get path of activations of a layer to all videos
+    # activations paths
     activations_file_list = glob.glob(activations_dir + '/*.npy')
     activations_file_list.sort()
 
-    # load one activation to later get dimension
+    # get activation dimensions
     feature_dim = np.load(activations_file_list[0], allow_pickle=True)[0][0].shape[0]
 
-    # initialise data matrix for PCA - #videos x layer dimension
-    x = np.zeros((len(activations_file_list), feature_dim))
-
-    # fill matrix with activations of every video (for a given layer)
+    # matrix with layer activations to every video (#videos x layer dim)
+    x_train = np.zeros((len(activations_file_list), feature_dim))
     for i, video_activations in enumerate(activations_file_list):
         temp = np.load(video_activations, allow_pickle=True)[0][0].detach().numpy()
-        x[i, :] = temp
+        x_train[i, :] = temp
 
-    # training data
-    x_train = x[:1000, :]
-
-    # scale training and test sets
+    # apply PCA
     x_train = StandardScaler().fit_transform(x_train)
-
-    # find principal components of training set
     pca = PCA(n_components=n_components, random_state=seed)
     pca.fit(x_train)
-
-    # project data onto components - #videos x #components
     x_train = pca.transform(x_train)
 
     # save results
