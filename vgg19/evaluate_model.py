@@ -15,17 +15,18 @@ layer = 'layer_19'
 video_dir = '/AlgonautsVideos268_All_30fpsmax'
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
+train_videos = 1000
 
 # load pretrained model
 vgg19 = load_weights(vgg19_url)
 
 # extract activations
 activations_dir = "/activations_vgg19"
-extract_activations(vgg19, video_list, activations_dir, layer=18)  # specify layer
+extract_activations(vgg19, video_list[:train_videos], activations_dir, layer)
 
 # perform pca on activations
 pca_dir = '/pca_activations'
-apply_pca(activations_dir, pca_dir)
+apply_pca(activations_dir, pca_dir, layer)
 
 fmri_dir = '/participants_data_v2021/mini_track'
 results_dir = '/predictions_vgg19'

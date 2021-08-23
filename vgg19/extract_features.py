@@ -58,9 +58,10 @@ def extract_activations(model, video_list, save_dir, layer):
             if frame == 0:
                 activations.append(layer_outputs[layer_index].ravel())
             else:
+                # add activations over frames
                 activations[0] = activations[0] + layer_outputs[layer_index].ravel()
 
-        # average layer activations across frames
+        # average activations across frames
         avg_layer_activations = np.array([activations]) / float(num_frames)
 
         # save activations for a particular video
@@ -78,6 +79,7 @@ def apply_pca(activations_dir, save_dir, layer):
         save path for extracted activations.
     save_dir : str
         save path for extracted PCA features.
+    layer: str
     """
 
     # number of PCA components
@@ -85,8 +87,8 @@ def apply_pca(activations_dir, save_dir, layer):
 
     # get path of activations of a layer to all videos
     activations_file_list = glob.glob(activations_dir + '/*.npy')
-    # sort activations in ascending order
     activations_file_list.sort()
+
     # load one activation to later get dimension
     feature_dim = np.load(activations_file_list[0], allow_pickle=True)[0][0].shape[0]
 
