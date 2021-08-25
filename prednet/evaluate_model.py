@@ -18,13 +18,11 @@ video_list.sort()
 train_videos = 1000
 
 # load pretrained model
-prednet = load_prednet(model_url)
+prednet = load_prednet(model_dir)
 
 # extract model features
-activations_dir = "/activations_vgg19"
-train_activations = extract_activations(prednet, video_list[:train_videos], activations_dir) #train_activations?
-pca_dir = '/pca_activations'
-train_activations = apply_pca(train_activations)
+train_activations = extract_activations(prednet, video_list[:train_videos])
+train_features = apply_pca(train_activations)
 
 # compute voxelwise correlations for all subjects and ROIs
 fmri_dir = '/participants_data_v2021/mini_track'
@@ -32,7 +30,7 @@ results_dir = '/predictions_prednet'
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
 for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
-        voxelwise_corrs[i, j] = perform_encoding(train_activations,
+        voxelwise_corrs[i, j] = perform_encoding(train_features,
                                                  fmri_dir,
                                                  layer=layer, #add layer name
                                                  sub=sub,
