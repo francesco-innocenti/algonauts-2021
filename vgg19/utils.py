@@ -115,35 +115,6 @@ def load_fmri(fmri_dir, sub, ROI):
     return ROI_data_train
 
 
-def load_activations(activations_dir, layer_name):
-    """This function loads neural network features/activations (preprocessed
-    using PCA) into a numpy array according to a given layer.
-
-    Parameters
-    ----------
-    activations_dir : str
-        path to PCA/processed neural network features
-    layer_name : str
-        which layer of the neural network to load
-
-    Returns
-    ---------
-    train_activations : np.array
-        matrix of dimensions #train_vids x #pca_components
-        containing activations of train videos
-    """
-
-    # load activation file of a given layer
-    train_file = os.path.join(activations_dir, "train_" + layer_name + ".npy")
-    activations = np.load(train_file)
-
-    # scale activations
-    scaler = StandardScaler()
-    activations = StandardScaler().fit_transform(activations)
-
-    return activations
-
-
 def vectorized_correlation(x, y):
     dim = 0
 
