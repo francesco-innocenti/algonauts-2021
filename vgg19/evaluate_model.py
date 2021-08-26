@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from utils import load_weights
 from extract_features import extract_activations, apply_pca
-from perform_encoding import perform_encoding
+from general_utils.perform_encoding import perform_encoding
 
 
 # subjects, regions of interest, model and layer
