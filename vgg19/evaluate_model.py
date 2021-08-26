@@ -10,7 +10,7 @@ from utils.perform_encoding import perform_encoding
 subs = ["sub01", "sub02", "sub03", "sub04", "sub05", "sub06", "sub07", "sub08", "sub09", "sub10"]
 ROIs = ["V1", "V2", "V3", "V4", "LOC", "EBA", "FFA", "STS", "PPA"]
 vgg19_url = 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
-layer = 'layer_19'
+layer = 'layer_16'
 
 # video paths
 video_dir = '/AlgonautsVideos268_All_30fpsmax'
@@ -50,7 +50,7 @@ subjs_std = np.std(voxelwise_corrs, axis=0)
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.bar(ROIs, subjs_mean, color='red', alpha=0.5)
 ax.errorbar(x=ROIs, y=subjs_mean, yerr=subjs_std, linestyle='', elinewidth=1, capsize=6, color='k')
-ax.set_title('Conv layer #16', fontsize=30, fontweight='bold', pad=35)
+ax.set_title('Layer 16', fontsize=30, fontweight='bold', pad=35)
 ax.set_xlabel("Region of interest", fontsize=25, labelpad=30)
 ax.set_ylabel("Correlation", fontsize=25, labelpad=30)
 ax.tick_params(axis='x', labelsize=20)
