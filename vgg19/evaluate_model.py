@@ -1,7 +1,7 @@
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
-from utils import load_weights
+from load_vgg19 import load_weights
 from extract_features import extract_activations, apply_pca
 from general_utils import perform_encoding
 

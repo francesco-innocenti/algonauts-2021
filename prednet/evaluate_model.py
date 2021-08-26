@@ -1,7 +1,7 @@
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
-from utils import load_prednet
+from load_prednet import load_prednet
 from extract_features import extract_activations, apply_pca
 from general_utils.perform_encoding import perform_encoding
 
@@ -32,7 +32,6 @@ for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
         voxelwise_corrs[i, j] = perform_encoding(train_features,
                                                  fmri_dir,
-                                                 layer=layer, #add layer name
                                                  sub=sub,
                                                  ROI=ROI)
 

@@ -1,5 +1,5 @@
 import numpy as np
-from utils import sample_video_frames
+from general_utils.sample_video_frames import sample_video_frames
 import cv2
 
 import torch
@@ -34,20 +34,20 @@ def extract_activations(model, video_list, layer, batch_size=1):
         save path for extracted activations.
     """
 
-    error_units =1
+    error_units = 1
 
     activations = np.zeros((len(video_list), error_units))
 
     for i, video in enumerate(video_list):
         print(f"Processing video #{i}")
 
-        video_frames, num_frames = sample_video_from_mp4(video)
+        video_frames, num_frames = sample_video_frames(video)
 
         # preprocess video frames
         video_frames = video_frames / 255.0
-        video_frames = np.array \
-            ([cv2.resize(video_frames[frame], (128, 160)) for frame in range(num_frames)])
-        video_frames = np.expand_dims(video_frames, axis = 0)
+        video_frames = np.array([cv2.resize(video_frames[frame], (128, 160))
+                                 for frame in range(num_frames)])
+        video_frames = np.expand_dims(video_frames, axis=0)
         video_frames = np.transpose(video_frames, (0, 1, 4, 3, 2))
 
         # pass video frames through the model
@@ -55,8 +55,7 @@ def extract_activations(model, video_list, layer, batch_size=1):
 
         # average layer activations/errors across frames
         layer_error = layer_error.squeeze(axis=0)[:, layer-1]
-        avg_activations = \
-                    (np.sum(layer_error, axis=0) / float(num_frames)).flatten()
+        avg_activations = (np.sum(layer_error, axis=0) / float(num_frames)).flatten()
 
         activations[i] = avg_activations
 
@@ -83,7 +82,6 @@ def apply_pca(train_activations):
     pca = PCA(n_components=n_components, random_state=seed)
     pca.fit(train_activations)
 
-    print("Projecting data onto components")
     # project data onto components - #videos x #components
     train_features = pca.transform(train_activations)
 

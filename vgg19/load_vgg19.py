@@ -3,7 +3,7 @@ from torch import hub
 from vgg19 import VGG19
 
 
-def load_weights(model_url):
+def load_vgg19(model_url):
     """This function loads pretrained weights onto a neural network (VGG19).
 
     Args:
