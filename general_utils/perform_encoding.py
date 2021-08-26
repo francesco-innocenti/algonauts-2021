@@ -1,4 +1,5 @@
-from utils import load_fmri, vectorized_correlation
+import load_fmri
+import vectorised_correlation
 from sklearn.linear_model import LinearRegression
 from sklearn.multioutput import MultiOutputRegressor
 
@@ -44,7 +45,7 @@ def perform_encoding(train_features, fmri_dir, sub, ROI):
     pred_fmri = reg.predict(val_features)
 
     # correlation between predictions and ground truth for each voxel
-    corr = vectorized_correlation(fmri_val, pred_fmri)
+    corr = vectorised_correlation(fmri_val, pred_fmri)
     # mean correlation across voxels
     voxelwise_corr = round(corr.mean(), 6)
 

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from utils import load_weights
 from extract_features import extract_activations, apply_pca
-from general_utils.perform_encoding import perform_encoding
+from general_utils import perform_encoding
 
 
 # subjects, regions of interest, model and layer
@@ -37,7 +37,6 @@ for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
         voxelwise_corrs[i, j] = perform_encoding(pca_dir,
                                                  fmri_dir,
-                                                 layer=layer,
                                                  sub=sub,
                                                  ROI=ROI)
 
