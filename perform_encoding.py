@@ -1,4 +1,3 @@
-import numpy as np
 from utils import load_fmri, vectorized_correlation
 from sklearn.linear_model import LinearRegression
 from sklearn.multioutput import MultiOutputRegressor
@@ -31,28 +30,22 @@ def perform_encoding(train_features, fmri_dir, sub, ROI):
 
     """
 
-    # load fMRI data for a given subject and ROI
-    fmri_train_all = load_fmri(fmri_dir, sub, ROI)
-    # get number of voxels for given ROI
-    num_voxels = fmri_train_all.shape[1]
+    fmri_train = load_fmri(fmri_dir, sub, ROI)
 
     # create training and validation sets
-    val_features = train_features[900:,:]
-    train_features = train_features[:900,:]
-    fmri_train = fmri_train_all[:900,:]
-    fmri_val = fmri_train_all[900:,:]
-
-    # initialise results - #validation videos x #voxels
-    pred_fmri = np.zeros_like(fmri_val)
+    val_features = train_features[900:, :]
+    train_features = train_features[:900, :]
+    fmri_train = fmri_train[:900, :]
+    fmri_val = fmri_train[900:, :]
 
     # perform multiple multivariate regression
     reg = MultiOutputRegressor(LinearRegression())
     reg.fit(train_features, fmri_train)
     pred_fmri = reg.predict(val_features)
 
-    # correlation between validation predictions and ground truth
+    # correlation between predictions and ground truth for each voxel
     corr = vectorized_correlation(fmri_val, pred_fmri)
-    # get mean correlation
+    # mean correlation across voxels
     voxelwise_corr = round(corr.mean(), 6)
 
     return voxelwise_corr
