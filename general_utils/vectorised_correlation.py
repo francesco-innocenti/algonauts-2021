@@ -1,4 +1,4 @@
-def vectorized_correlation(x, y):
+def vectorised_correlation(x, y):
     dim = 0
 
     centered_x = x - x.mean(axis=dim, keepdims=True)

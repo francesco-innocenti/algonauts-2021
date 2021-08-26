@@ -1,5 +1,5 @@
-import load_fmri
-import vectorised_correlation
+from load_fmri import load_fmri
+from vectorised_correlation import vectorised_correlation
 from sklearn.linear_model import LinearRegression
 from sklearn.multioutput import MultiOutputRegressor
 
