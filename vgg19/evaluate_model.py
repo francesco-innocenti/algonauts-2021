@@ -1,9 +1,9 @@
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
-from load_vgg19 import load_weights
+from load_vgg19 import load_vgg19
 from extract_features import extract_activations, apply_pca
-from utils import perform_encoding
+from utils.perform_encoding import perform_encoding
 
 
 # subjects, regions of interest, model and layer
@@ -19,7 +19,7 @@ video_list.sort()
 train_videos = 1000
 
 # load pretrained model
-vgg19 = load_weights(vgg19_url)
+vgg19 = load_vgg19(vgg19_url)
 
 # extract activations
 activations_dir = "/activations_vgg19"

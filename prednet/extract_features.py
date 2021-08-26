@@ -1,6 +1,6 @@
+import cv2
 import numpy as np
 from utils.sample_video_frames import sample_video_frames
-import cv2
 
 import torch
 from sklearn.preprocessing import StandardScaler
