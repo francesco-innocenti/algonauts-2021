@@ -1,3 +1,8 @@
+"""
+Helper functions adapted from the Algonauts 2021 "development kit"
+(https://github.com/Neural-Dynamics-of-Visual-Cognition-FUB/Algonauts2021_devkit)
+"""
+
 import os
 import pickle
 import numpy as np
@@ -12,37 +17,25 @@ def sample_video_frames(file, n_frames=16):
     """This function takes a mp4 video file as input and returns
     an array of uniformly sampled frames.
 
-    Args
-    ----------
-    file : str
-        path to mp4 video file
-    n_frames : int
-        number of frames to select with uniform frame sampling
+    Args:
+        file (str): path to mp4 video file.
+        n_frames (int): number of frames to select with uniform frame sampling.
 
-    Returns
-    -------
-    frames: list of frames as PIL images
-    num_frames: number of sampled frames
+    Returns:
+        video_frames: list of frames as PIL images.
+        num_frames (int): number of sampled frames.
 
     """
 
-    # read video file
     video = VideoReader(file)
-
-    # get total number of video frames
     total_frames = len(video)
-
-    # create frame indices
     frame_indices = np.linspace(0, total_frames - 1, n_frames, dtype=np.int)
 
     video_frames = []
-
-    # list of video frames as PIL images
     for i in frame_indices:
         video_frames.append(Image.fromarray(video[i].asnumpy()))
 
     return video_frames, n_frames
-
 
 
 def load_dict(filename_):
@@ -55,23 +48,18 @@ def load_dict(filename_):
 
 
 def load_fmri(fmri_dir, sub, ROI):
-    """This function loads fMRI data into a numpy array for a given
-    participant and ROI.
+    """This function loads and averages across sessions fMRI data for a given
+    participant and region of interest (ROI).
 
-    Parameters
-    ----------
-    fmri_dir : str
-        path to fMRI data.
-    sub : str
-        participant number path
-    ROI : str
-        name of ROI.
+    Args:
+        fmri_dir (str): path to fMRI data.
+        sub (str): participant number path.
+        ROI (str): name of ROI.
 
-    Returns
-    ---------
-    np.array
-        matrix of dimensions #train_vids x #repetitions x #voxels
-        containing fMRI responses to train videos of a given ROI.
+    Returns:
+        ROI_data_train (np array): matrix containing average fMRI responses to
+            training videos (n_train_videos x n_voxels).
+
     """
 
     # Load ROI data
@@ -104,28 +92,20 @@ def vectorised_correlation(x, y):
 
 def perform_encoding(train_features, fmri_dir, sub, ROI):
     """This function linearly regresses pca-reduced features/activations of a
-    given layer of a neural network to the fMRI activity of a given brain region
-    (ROI) in a given subject. The fitted model is used to predict part of the
-    training set (validation mode). The model predictions are saved in a specified
-    directory.
+    neural network to the fMRI responses of a given subject in a given region
+    of interest (ROI). The fitted model is evaluated on a held-out, validation
+    set.
 
-    # Arguments
-    -------------
-    pca_dir : str
-        path to PCA features.
-    fmri_dir : str
-        path to fMRI data.
-    results_dir : str
-        saving directory for results.
-    layer : str
-        layer name from which to extract activations.
-    sub : str
-        participant number path.
-    ROI : str
-        region of interest (brain region) from which to extract fMRI data.
-    batch_size : int
-        Number of voxels processed when fitting the linear regressor. 1000 by
-        default.
+    Args:
+        train_features (np array): matrix containing pca features of a neural
+            network to all training videos (n_train_videos x n_components).
+        fmri_dir (str): path to fMRI data.
+        sub (str): participant number path.
+        ROI (str): name of ROI.
+
+    Returns:
+        voxelwise_corr (float): correlation averaged across voxels for given
+            subject and ROI.
 
     """
 
