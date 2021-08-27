@@ -1,3 +1,7 @@
+"""
+The PredNet model is due to https://github.com/coxlab/prednet.
+"""
+
 import numpy as np
 
 from keras import backend as K

@@ -4,6 +4,20 @@ from keras import Input, Model
 
 
 def load_prednet(model_dir, output_mode='error', nt=16):
+    """This function loads a PredNet trained on the KITTI dataset, specifying
+    the output mode and the number of time steps for video frames.
+
+        Args:
+            model_dir (str): prednet model directory.
+            output_mode (str): the output of the PredNet. Either 'error',
+                'prediction', 'all' or layer specification (eg R3). Default is
+                'error'. See PredNet doc for more information.
+            nt (int): number of time steps for video frames.
+
+        Returns:
+            class: pretrained PredNet.
+
+    """
 
     # load model and weights
     weights_file = os.path.join(model_dir, 'tensorflow_weights/prednet_kitti_weights.hdf5')

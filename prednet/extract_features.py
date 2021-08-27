@@ -18,20 +18,19 @@ np.random.seed(seed)
 
 
 def extract_activations(model, video_list, layer, batch_size=1):
-    """This function extracts the activations (features) of a specific layer of
-    a model to a set of videos and save them in a specified directory. Every
-    file is a list with a vector containing the activations of that layer to
-    a particular video. The activations are averaged over the frames of every
-    video.
+    """This function extracts the activations/features of a specific error
+    layer of prednet to a set of videos. The activations are averaged across
+    video frames.
 
-    Parameters
-    ----------
-    model :
-        pytorch model.
-    video_list : list
-        list containing path to all videos.
-    save_dir : str
-        save path for extracted activations.
+        Args:
+            model (tensorflow class): prednet model.
+            video_list (list): list containing video paths.
+            layer (int): prednet layer number.
+            batch_size (int): default is 1 for one video.
+
+        Returns:
+            activations (np array): matrix storing model layer activations
+                averaged across video frames (n_videos x n_layer_units).
     """
 
     error_units = 1
@@ -63,26 +62,22 @@ def extract_activations(model, video_list, layer, batch_size=1):
 
 
 def apply_pca(train_activations):
-    """This function preprocesses a neural network's features using PCA and
-    save the results in a specified directory.
+    """This function applies principal component analysis to the training
+    activations/features of a prednet model.
 
-    Parameters
-    ----------
-    train_activations :
-        ...
+        Args:
+            train_activations (np array): matrix storing model layer activations
+                averaged across training video frames (n_videos x n_layer_units).
+
+        Returns:
+            train_features (np array): matrix with pca-reduced activations to
+                every video (n_videos x n_pca_components).
     """
 
-    # number of PCA components
     n_components = 100
-
-    # scale training set
     train_activations = StandardScaler().fit_transform(train_activations)
-
-    # find principal components of training set
     pca = PCA(n_components=n_components, random_state=seed)
     pca.fit(train_activations)
-
-    # project data onto components - #videos x #components
     train_features = pca.transform(train_activations)
 
     return train_features

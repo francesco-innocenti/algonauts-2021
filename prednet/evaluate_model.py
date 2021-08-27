@@ -1,3 +1,9 @@
+"""
+This script evaluates an encoding model built from the features of a pretrained
+PredNet on a held-out, validation set of fMRI responses in 9 visual regions
+across all 10 subjects.
+"""
+
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
