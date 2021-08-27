@@ -15,7 +15,7 @@ def load_prednet(model_dir, output_mode='error', nt=16):
             nt (int): number of time steps for video frames.
 
         Returns:
-            class: pretrained PredNet.
+            class: pretrained PredNet ready for inference.
 
     """
 

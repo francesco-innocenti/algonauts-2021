@@ -21,20 +21,16 @@ np.random.seed(seed)
 
 
 def extract_activations(model, video_list, save_dir, layer):
-    """This function extracts the activations (features) of a given layer of
-    a pytorch neural network to a set of videos and save them in a specified
-    directory. The activations are averaged over the frames of every video.
+    """This function extracts and saves the activations/features of a specific
+    layer of VGG19 to a set of videos. The activations are averaged across
+    video frames.
 
-    Parameters
-    ----------
-    model :
-        pytorch model.
-    video_list : list
-        list containing path to all videos.
-    save_dir : str
-        save path for extracted activations.
-    layer : str
-        integer specifying layer number.
+        Args:
+            model (pytorch class): VGG19 model.
+            video_list (list): list containing video paths.
+            save_dir (str): saving directory for extracted activations.
+            layer (str): VGG19 layer name.
+
     """
 
     layer_index = [int(n) for n in layer.split('_') if n.isdigit()][0]-1
@@ -70,16 +66,14 @@ def extract_activations(model, video_list, save_dir, layer):
 
 
 def apply_pca(activations_dir, save_dir, layer):
-    """This function preprocesses a neural network's features using PCA and
-    save the results in a specified directory.
+    """This function applies principal component analysis to the loaded
+    activations/features of a VGG19 model and saves the results.
 
-    Parameters
-    ----------
-    activations_dir : str
-        save path for extracted activations.
-    save_dir : str
-        save path for extracted PCA features.
-    layer: str
+        Args:
+            activations_dir (str): directory of VGG19 activations.
+            save_dir (str): saving directory for results.
+            layer (str): VGG19 layer name.
+
     """
 
     # number of PCA components

@@ -31,6 +31,7 @@ def extract_activations(model, video_list, layer, batch_size=1):
         Returns:
             activations (np array): matrix storing model layer activations
                 averaged across video frames (n_videos x n_layer_units).
+
     """
 
     error_units = 1
@@ -72,6 +73,7 @@ def apply_pca(train_activations):
         Returns:
             train_features (np array): matrix with pca-reduced activations to
                 every video (n_videos x n_pca_components).
+
     """
 
     n_components = 100

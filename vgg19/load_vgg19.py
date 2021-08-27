@@ -4,15 +4,14 @@ from vgg19 import VGG19
 
 
 def load_vgg19(model_url):
-    """This function loads pretrained weights onto a neural network (VGG19).
+    """This function loads pretrained ImageNet weights onto a defined VGG19.
 
     Args:
-        model_url: str
-            URL of pretrained pytorch model.
+        model_url (str): URL of pretrained pytorch VGG19.
 
     Returns:
-        model: class
-            pytorch model ready for inference.
+        model (class): pretrained VGG19 ready for inference.
+
     """
 
     model = VGG19()
