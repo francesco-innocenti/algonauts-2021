@@ -11,6 +11,7 @@ from keras.layers import Conv2D, UpSampling2D, MaxPooling2D
 from keras.engine import InputSpec
 from keras_utils import legacy_prednet_support
 
+
 class PredNet(Recurrent):
     '''PredNet architecture - Lotter 2016.
         Stacked convolutional LSTM inspired by predictive coding principles.

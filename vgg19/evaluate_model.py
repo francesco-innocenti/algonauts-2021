@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from load_vgg19 import load_vgg19
 from extract_features import extract_activations, apply_pca
-from utils.perform_encoding import perform_encoding
+from algonauts.utils import perform_encoding
 
 
 # subjects, regions of interest, model and layer

@@ -1,7 +1,7 @@
 import os
 import glob
 import numpy as np
-from utils import sample_video_frames
+from algonauts.utils import sample_video_frames
 
 import torch
 from torchvision import transforms as trn
