@@ -13,7 +13,7 @@ influential neuroscience theory of predictive coding ([Millidge, Seth & Buckley,
 predictive models of the visual system, VGG19 
 ([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
 
-![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/model_comparison.png)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/model_comparison.png)
 
 ## Code organisation
 
