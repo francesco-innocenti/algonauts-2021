@@ -15,7 +15,34 @@ by the influential neuroscience theory of predictive coding
 the currently most predictive models of the visual system, VGG19 
 ([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
 
+Here are some video predictions of a PredNet pretrained on a self-driving car 
+dataset (see [Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104)).
+
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_234.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_390.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_539.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_587.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_705.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_976.gif)
+
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_234.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_390.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_539.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_587.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_705.gif)
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_976.gif)
+
+We built two simple encoding models, extracting the activations of each network 
+to the training videos (1000), reducing their dimensionality with PCA, and 
+linearly regressing the components onto the fMRI responses of 9 visual regions 
+in all subjects. We evaluated the fitted models on a held-out validation set of 
+100 videos. Here are the results. 
+
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/model_comparison.png)
+
+Interestingly, we found that VGG19 - which has 3 orders of magnitude more 
+parameters than PredNet - needs many more layers to match the performance of
+PredNet.
 
 ### Code organisation
 
