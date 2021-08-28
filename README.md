@@ -1,13 +1,13 @@
 # Algonauts 2021 Models
 This is a repo evaluating models for predicting fMRI data associated with the 
-Algonauts Project 2021 Challenge (see [Cichy et al., 2021](https://arxiv.org/abs/2104.13714); 
+Algonauts Project 2021 Challenge ([Cichy et al., 2021](https://arxiv.org/abs/2104.13714); 
 [Cichy, Roig & Oliva, 2019](https://www.nature.com/articles/s42256-019-0127-z)). 
 In brief, the challenge is to predict the fMRI responses of 10 participants to
 over 1000 short natural videos. 
 
-In this project - which was conducted as part of [Neuromatch Academy 2021 summer 
-courses](https://academy.neuromatch.io) - we were interested in testing a 
-biologically inspired model. We compared PredNet 
+In this mini-project - which was conducted as part of 
+[Neuromatch Academy 2021](https://academy.neuromatch.io) - we were interested 
+in testing a biologically inspired model. We compared PredNet 
 ([Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104), 
 [2020](https://www.nature.com/articles/s42256-020-0170-9)), a network inspired 
 by the influential neuroscience theory of predictive coding 
@@ -17,9 +17,9 @@ the currently most predictive models of the visual system, VGG19
 
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/model_comparison.png)
 
-## Code organisation
+### Code organisation
 
 The code for the two models, PredNet and VGG19, is stored in different
 directories (`prednet` and `vgg19`) because they have different dependencies.
-Functions used for computation with both models are stored in a mini-package 
-called `algonauts`.
+Functions used for computation with both models are stored in a custom-made
+mini-package called `algonauts`.
