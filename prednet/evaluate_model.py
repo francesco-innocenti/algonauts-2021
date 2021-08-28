@@ -21,7 +21,7 @@ model_dir = './model_data_keras2/'
 video_dir = '/AlgonautsVideos268_All_30fpsmax'
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
-train_videos = 1000
+n_train_videos = 1000
 
 # load pretrained model
 prednet = load_prednet(model_dir)
