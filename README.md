@@ -7,10 +7,12 @@ over 1000 short natural videos.
 
 In this project - which was conducted as part of [Neuromatch Academy 2021 summer 
 courses](https://academy.neuromatch.io) - we were interested in testing a 
-biologically inspired model. We compared PredNet, a network inspired by the 
-influential neuroscience theory of predictive coding ([Millidge, Seth & Buckley, 
-2021](https://arxiv.org/abs/2107.12979)), to one of the currently most 
-predictive models of the visual system, VGG19 
+biologically inspired model. We compared PredNet 
+([Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104), 
+[2020](https://www.nature.com/articles/s42256-020-0170-9)), a network inspired 
+by the influential neuroscience theory of predictive coding 
+([Millidge, Seth & Buckley, 2021](https://arxiv.org/abs/2107.12979)), to one of 
+the currently most predictive models of the visual system, VGG19 
 ([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
 
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/model_comparison.png)
