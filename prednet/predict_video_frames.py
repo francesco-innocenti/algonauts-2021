@@ -1,5 +1,5 @@
 """
-This script predicts video frames with a pretrained PredNet.
+This script predicts a given number of videos with a pretrained PredNet.
 """
 
 import glob
@@ -61,6 +61,6 @@ for i in video_indices:
     # make gifs
     fps = 5.33
     frame_pause = 0.75
-    imageio.mimwrite(actual_path, frames, duration=frame_pause, fps)
-    imageio.mimwrite(pred_path, pred_frames, duration=frame_pause, fps)
+    imageio.mimwrite(actual_path, frames, duration=frame_pause, fps=fps)
+    imageio.mimwrite(pred_path, pred_frames, duration=frame_pause, fps=fps)
 
