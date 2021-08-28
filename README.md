@@ -13,12 +13,9 @@ influential neuroscience theory of predictive coding ([Millidge, Seth & Buckley,
 predictive models of the visual system, VGG19 
 ([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
 
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/actual_video_1.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/actual_video_2.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/actual_video_3.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/actual_video_4.gif)
+## Code organisation
 
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/predicted_video_1.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/predicted_video_2.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/predicted_video_3.gif)
-![alt text](https://github.com/FrancescoInnocenti/fMRI_Encoding_Models/blob/main/media/predicted_video_4.gif)
+The code for the two models, PredNet and VGG19, is stored in different
+directories (`prednet` and `vgg19`) because they have different dependencies.
+Functions used for computation with both models are stored in a mini-package 
+called `algonauts`.

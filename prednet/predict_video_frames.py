@@ -19,7 +19,7 @@ np.random.seed(seed)
 model_dir = './model_data_keras2/'
 prednet = load_prednet(model_dir, output_mode='prediction')
 
-# randomly sample a given number of videos
+# randomly sample a given number of training videos
 video_dir = '/AlgonautsVideos268_All_30fpsmax'
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
@@ -27,13 +27,12 @@ n_train_videos = 1000
 n_predictions = 6
 video_indices = np.random.choice(range(n_train_videos), n_predictions)
 
-video_pred_dir = "/Algonauts_2021_Models/prednet/videos"
+video_pred_dir = "/Algonauts_2021_Models/prednet/video_predictions"
 if not os.path.exists(video_pred_dir):
     os.makedirs(video_pred_dir)
 
 for i in video_indices:
 
-    fps = 5.33
     frames, num_frames = sample_video_frames(video_list[i])
 
     # preprocess frames
@@ -59,5 +58,9 @@ for i in video_indices:
     actual_path = os.path.join(video_pred_dir, f"actual_video_{i}.gif")
     pred_path = os.path.join(video_pred_dir, f"predicted_video_{i}.gif")
 
-    imageio.mimwrite(actual_path, frames, fps)
-    imageio.mimwrite(pred_path, pred_frames, fps)
+    # make gifs
+    fps = 5.33
+    frame_pause = 0.75
+    imageio.mimwrite(actual_path, frames, duration=frame_pause, fps)
+    imageio.mimwrite(pred_path, pred_frames, duration=frame_pause, fps)
+
