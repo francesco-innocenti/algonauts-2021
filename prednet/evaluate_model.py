@@ -27,7 +27,7 @@ n_train_videos = 1000
 prednet = load_prednet(model_dir)
 
 # extract model features
-train_activations = extract_activations(prednet, video_list[:train_videos])
+train_activations = extract_activations(prednet, video_list[:n_train_videos])
 train_features = apply_pca(train_activations)
 
 # compute voxelwise correlations for all subjects and ROIs
