@@ -13,6 +13,8 @@ influential neuroscience theory of predictive coding ([Millidge, Seth & Buckley,
 predictive models of the visual system, VGG19 
 ([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
 
+![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/model_comparison.png)
+
 ## Code organisation
 
 The code for the two models, PredNet and VGG19, is stored in different
