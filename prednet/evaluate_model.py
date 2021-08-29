@@ -4,6 +4,7 @@ PredNet on a held-out, validation set of fMRI responses in 9 visual regions
 across all 10 subjects.
 """
 
+import os
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,7 +19,7 @@ ROIs = ["V1", "V2", "V3", "V4", "LOC", "EBA", "FFA", "STS", "PPA"]
 model_dir = './model_data_keras2/'
 
 # list of video paths
-video_dir = '/AlgonautsVideos268_All_30fpsmax'
+video_dir = '/Algonauts_2021_Models/AlgonautsVideos268_All_30fpsmax'
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
 n_train_videos = 1000
@@ -31,8 +32,11 @@ train_activations = extract_activations(prednet, video_list[:n_train_videos])
 train_features = apply_pca(train_activations)
 
 # compute voxelwise correlations for all subjects and ROIs
-fmri_dir = '/participants_data_v2021/mini_track'
-results_dir = '/predictions_prednet'
+fmri_dir = '/Algonauts_2021_Models/participants_data_v2021/mini_track'
+results_dir = "/Algonauts_2021_Models/predictions_prednet"
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
+
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
 for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):

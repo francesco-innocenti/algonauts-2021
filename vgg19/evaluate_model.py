@@ -4,6 +4,7 @@ VGG19 on a held-out, validation set of fMRI responses in 9 visual regions
 across all 10 subjects.
 """
 
+import os
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,7 +20,7 @@ vgg19_url = 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
 layer = 'layer_16'
 
 # video paths
-video_dir = '/AlgonautsVideos268_All_30fpsmax'
+video_dir = '/Algonauts_2021_Models/AlgonautsVideos268_All_30fpsmax'
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
 train_videos = 1000
@@ -28,16 +29,22 @@ train_videos = 1000
 vgg19 = load_vgg19(vgg19_url)
 
 # extract activations
-activations_dir = "/activations_vgg19"
+activations_dir = "/Algonauts_2021_Models/activations_vgg19"
+if not os.path.exists(activations_dir):
+    os.makedirs(activations_dir)
 extract_activations(vgg19, video_list[:train_videos], activations_dir, layer)
 
 # perform pca on activations
-pca_dir = '/pca_activations'
+pca_dir = '/Algonauts_2021_Models/pca_activations'
+if not os.path.exists(pca_dir):
+    os.makedirs(pca_dir)
 apply_pca(activations_dir, pca_dir, layer)
 
 # compute voxelwise correlations for all subjects and ROIs
-fmri_dir = '/participants_data_v2021/mini_track'
-results_dir = '/predictions_vgg19'
+fmri_dir = '/Algonauts_2021_Models/participants_data_v2021/mini_track'
+results_dir = '/Algonauts_2021_Models/predictions_vgg19'
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
 for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
