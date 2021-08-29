@@ -1,6 +1,6 @@
 """
 This script evaluates an encoding model built from the features of a pretrained
-VGG19 on a held-out, validation set of fMRI responses in 9 visual regions
+VGG19 layer on a held-out, validation set of fMRI responses in 9 visual regions
 across all 10 subjects.
 """
 
