@@ -13,38 +13,23 @@ from extract_features import extract_activations, apply_pca
 from algonauts.utils import perform_encoding
 
 
-# subjects, regions of interest, model and layer
-subs = ["sub01", "sub02", "sub03", "sub04", "sub05", "sub06", "sub07", "sub08", "sub09", "sub10"]
-ROIs = ["V1", "V2", "V3", "V4", "LOC", "EBA", "FFA", "STS", "PPA"]
 vgg19_url = 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
-layer = 'layer_16'
-
-# video paths
 video_dir = '/Algonauts_2021_Models/AlgonautsVideos268_All_30fpsmax'
+activations_dir = "/Algonauts_2021_Models/vgg19/activations"
+pca_dir = '/Algonauts_2021_Models/vgg19/pca_activations'
+fmri_dir = '/Algonauts_2021_Models/participants_data_v2021/mini_track'
+results_dir = '/Algonauts_2021_Models/vgg19/fmri_predictions'
+
+vgg19 = load_vgg19(vgg19_url)
 video_list = glob.glob(video_dir + '/*.mp4')
 video_list.sort()
-train_videos = 1000
-
-# load pretrained model
-vgg19 = load_vgg19(vgg19_url)
-
-# extract activations
-activations_dir = "/Algonauts_2021_Models/activations_vgg19"
-if not os.path.exists(activations_dir):
-    os.makedirs(activations_dir)
-extract_activations(vgg19, video_list[:train_videos], activations_dir, layer)
-
-# perform pca on activations
-pca_dir = '/Algonauts_2021_Models/pca_activations'
-if not os.path.exists(pca_dir):
-    os.makedirs(pca_dir)
+n_train_videos = 1000
+layer = 'layer_16'
+extract_activations(vgg19, video_list[:n_train_videos], activations_dir, layer)
 apply_pca(activations_dir, pca_dir, layer)
 
-# compute voxelwise correlations for all subjects and ROIs
-fmri_dir = '/Algonauts_2021_Models/participants_data_v2021/mini_track'
-results_dir = '/Algonauts_2021_Models/predictions_vgg19'
-if not os.path.exists(results_dir):
-    os.makedirs(results_dir)
+subs = ["sub01", "sub02", "sub03", "sub04", "sub05", "sub06", "sub07","sub08", "sub09", "sub10"]
+ROIs = ["V1", "V2", "V3", "V4", "LOC", "EBA", "FFA", "STS", "PPA"]
 voxelwise_corrs = np.zeros((len(subs), len(ROIs)))
 for i, sub in enumerate(subs):
     for j, ROI in enumerate(ROIs):
