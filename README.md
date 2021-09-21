@@ -11,12 +11,13 @@ in testing a biologically inspired model. We compared PredNet
 ([Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104), 
 [2020](https://www.nature.com/articles/s42256-020-0170-9)), a network inspired 
 by the influential neuroscience theory of predictive coding 
-([Millidge, Seth & Buckley, 2021](https://arxiv.org/abs/2107.12979)), to one of 
-the currently most predictive models of the visual system, VGG19 
-([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)).
+([Millidge, Seth & Buckley, 2021](https://arxiv.org/abs/2107.12979)), to VGG19
+([Simonyan & Zisserman, 2015](https://arxiv.org/abs/1409.1556)), currently one
+of the most predictive models of the ventral visual stream ([Nonaka et al., 2021](https://www.sciencedirect.com/science/article/pii/S2589004221009810),
+[Schrimpf et al., 2020](https://www.biorxiv.org/content/10.1101/407007v2)).
 
-Here are some video predictions of a PredNet pretrained on a self-driving car 
-dataset (see [Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104)).
+We used a PredNet pretrained on a self-driving car dataset (see [Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104)
+for details). Here are some example predictions of this model on the Algonauts videos.
 
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_234.gif)
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/actual_video_390.gif)
@@ -32,21 +33,23 @@ dataset (see [Lotter, Kreiman & Cox, 2016](https://arxiv.org/abs/1605.08104)).
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_705.gif)
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/prednet/video_predictions/predicted_video_976.gif)
 
-We built two simple encoding models, extracting the activations of each network 
-to the training videos (1000), reducing their dimensionality with PCA, and 
-linearly regressing the components onto the fMRI responses of 9 visual regions 
-in all subjects. We evaluated the fitted models on a held-out validation set of 
-100 videos. Here are the results. 
+We built two simple encoding models ([Naselaris et al., 2011](https://www.sciencedirect.com/science/article/pii/S1053811910010657); 
+[van Gerven, 2017](https://www.sciencedirect.com/science/article/pii/S0022249616300487)), 
+extracting the layer activations of each network to 900 training videos, 
+reducing their dimensionality with principal component analysis, and linearly 
+regressing the components onto the fMRI responses of 9 visual regions in all 
+subjects. We evaluated the fitted models on a held-out validation set of 100 
+videos. Here are the results. 
 
 ![Alt Text](https://github.com/FrancescoInnocenti/Algonauts_2021_Models/blob/main/model_comparison.png)
 
-Interestingly, we found that VGG19 - which has 3 orders of magnitude more 
-parameters than PredNet - needs many more layers to match the performance of
-PredNet.
+Interestingly, we found that VGG19 - which has about 3 orders of magnitude more 
+parameters than PredNet - needed many more layers to match the performance of
+PredNet, suggesting that the latter is much more efficient.
 
 ### Code organisation
 
 The code for the two models, PredNet and VGG19, is stored in different
-directories (`prednet` and `vgg19`) because they have different dependencies.
+subdirectories (`prednet` and `vgg19`) because they have different dependencies.
 Functions used for computation with both models are stored in a custom-made
 mini-package called `algonauts`.
